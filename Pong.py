@@ -1,3 +1,9 @@
+# Pong Game
+# based on https://www.youtube.com/watch?v=C6jJg9Zan7w
+# 2019 Feb. 10th
+# Shackdown
+
+
 import turtle
 import os
 
@@ -33,7 +39,7 @@ paddle_b.goto(350,0)
 #Ball
 ball = turtle.Turtle()
 ball.speed(0)
-ball.shape("square")
+ball.shape("circle")
 ball.color("white")
 ball.penup()
 ball.goto(0,0)
@@ -47,7 +53,6 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0,260)
-pen.write("Player A: {} / Player B: {}".format(score_a, score_b), align="center", font=("Courier",24, "normal"))
 
 
 #Function
@@ -74,6 +79,10 @@ def paddle_b_down():
 def sound_bounce():
     os.system("afplay bounce.wav&")
 
+def scoring():
+    pen.clear()
+    pen.write("Player A: {} / Player B: {}".format(score_a, score_b), align="center", font=("Courier",24, "normal"))
+scoring()
 
 #Keybord binding
 wn.listen()
@@ -106,15 +115,14 @@ while True:
         ball.goto(0,0)
         ball.dx *= -1
         score_a += 1
-        pen.clear()
-        pen.write("Player A: {} / Player B: {}".format(score_a, score_b), align="center", font=("Courier",24, "normal"))
+        scoring()
+
     
     if ball.xcor()<-390:
         ball.goto(0,0)
         ball.dx *= -1
         score_b += 1
-        pen.clear()
-        pen.write("Player A: {} / Player B: {}".format(score_a, score_b), align="center", font=("Courier",24, "normal"))
+        scoring()
 
     # Paddle and ball collision
     if (ball.xcor() > 340 and ball.xcor()<350) and (ball.ycor() < paddle_b.ycor()+40 and ball.ycor() > paddle_b.ycor() - 40):
