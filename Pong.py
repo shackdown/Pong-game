@@ -1,4 +1,5 @@
 import turtle
+import os
 
 wn = turtle.Screen()
 wn.title("Pong")
@@ -70,6 +71,10 @@ def paddle_b_down():
     y -= 20
     paddle_b.sety(y)
 
+def sound_bounce():
+    os.system("afplay bounce.wav&")
+
+
 #Keybord binding
 wn.listen()
 wn.onkeypress(paddle_a_up,"w")
@@ -90,10 +95,12 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
+        sound_bounce()
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        sound_bounce()
 
     if ball.xcor()> 390:
         ball.goto(0,0)
@@ -113,7 +120,9 @@ while True:
     if (ball.xcor() > 340 and ball.xcor()<350) and (ball.ycor() < paddle_b.ycor()+40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
+        sound_bounce()
 
     if (ball.xcor() < -340 and ball.xcor()>-350) and (ball.ycor() < paddle_a.ycor()+40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
-        ball.dx *= -1  
+        ball.dx *= -1
+        sound_bounce()
